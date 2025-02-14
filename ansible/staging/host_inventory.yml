@@ -1,0 +1,7 @@
+sde:
+  hosts:
+    my_pc:
+      ansible_host: "{{ pc_ip }}"
+      notes: "My Personal Computer"
+      vm_name: "Julian's Personal Computer"
+

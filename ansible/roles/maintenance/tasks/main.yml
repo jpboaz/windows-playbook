@@ -1,0 +1,30 @@
+- name: Run Hello World
+  ansible.windows.win_powershell:
+    script: |
+      echo "hello world"
+  remote_user: remoteuser
+  tags:
+    - maintenance
+    - run_hello_world
+
+- name: Determine Hostname
+  ansible.windows.win_powershell:
+    script: |
+      $env:computername
+  remote_user: remoteuser
+  tags:
+    - maintenance
+    - determine_hostname
+
+- name: Get Disk Facts
+  win_disk_facts:
+  tags:
+    - maintenance
+    - get_disk_facts
+
+- name: Display disk information
+  debug:
+    var: ansible_facts.disks.partitions.volumes.size_remaining
+  tags:
+    - maintenance
+    - display_disk_information

@@ -1,0 +1,6 @@
+- name: Windows Maintenance
+  gather_facts: false
+  hosts: sde
+  roles:
+    - maintenance
+
