@@ -7,14 +7,16 @@
     - maintenance
     - run_hello_world
 
-- name: Determine Hostname
+- name: Clean Up C Drive
   ansible.windows.win_powershell:
     script: |
-      $env:computername
+      Get-ChildItem -Path "C:\Users\julia\Downloads\TestRemoval" -Recurse -Depth 0 |
+      Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-0) } |
+      Remove-Item -WhatIf -Force -Recurse
   remote_user: remoteuser
   tags:
     - maintenance
-    - determine_hostname
+    - clean_up_c_drive
 
 - name: Get Disk Space
   ansible.windows.win_powershell:
