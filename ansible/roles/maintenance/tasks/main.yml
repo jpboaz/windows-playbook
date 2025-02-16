@@ -16,15 +16,18 @@
     - maintenance
     - determine_hostname
 
-- name: Get Disk Facts
-  win_disk_facts:
+- name: Get Disk Space
+  ansible.windows.win_powershell:
+    script: |
+      Get-PSDrive C; Get-PSDrive D
+  register: disk_space
   tags:
     - maintenance
-    - get_disk_facts
+    - get_disk_space
 
-- name: Display disk information
+- name: Report Disk Space
   debug:
-    var: ansible_facts.disks.partitions.volumes.size_remaining
+    var: disk_space.output
   tags:
     - maintenance
-    - display_disk_information
+    - report_disk_space
